@@ -2,6 +2,20 @@
 rustflags = ["-Ctarget-feature=+crt-static"]
 [target.i686-pc-windows-msvc]
 rustflags = ["-Ctarget-feature=+crt-static"]
+
+# Configuration for Apple Silicon (M-series) Macs
+[target.aarch64-apple-darwin]
+rustflags = [
+    "-C", "link-args=-sectcreate __CGPreLoginApp __cgpreloginapp /dev/null",
+]
+
+# Configuration for Intel Macs
+[target.x86_64-apple-darwin]
+rustflags = [
+    "-C", "link-args=-sectcreate __CGPreLoginApp __cgpreloginapp /dev/null",
+]
+
+# Legacy configuration for macOS (kept for compatibility)
 [target.'cfg(target_os="macos")']
 rustflags = [
     "-C", "link-args=-sectcreate __CGPreLoginApp __cgpreloginapp /dev/null",
